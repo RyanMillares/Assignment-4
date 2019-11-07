@@ -4,7 +4,7 @@
 #include <algorithm>
 using namespace std;
 Register::Register(){
-  myQueue = new GenQueue2<Student>();
+  myQueue = new GenQueue<Student>();
   windowArray = NULL;
   studentArray = NULL;
   totalWindows = 0;
@@ -13,8 +13,8 @@ Register::Register(){
   file = " ";
 }
 Register::Register(int num, string fileName){
-  myQueue = new GenQueue2<Student>();
-  waitTimes = new GenQueue2<int>();
+  myQueue = new GenQueue<Student>();
+  waitTimes = new GenQueue<int>();
 
 
   windowArray = new Window[num];
@@ -60,13 +60,17 @@ void Register::simulate(){
         incrementIdle();
         incrementWait();
 
+
         //once the time matches, add the students to queue
         if(time == num){
+
           getline(stream,currentLine);
           hold = stoi(currentLine);
           for(int i = 0; i < hold; i++){
             getline(stream,currentLine);
+
             myQueue->insert(Student(stoi(currentLine)));
+
 
           }
         }
@@ -140,6 +144,7 @@ void Register::fillWindows(){
   for(int i = 0; i < totalWindows; ++i){
     if(!windowArray[i].getStatus()){
       if(!myQueue->isEmpty()){
+
         Student temp = myQueue->remove();
         studentArray[i] = temp.getCount();
         waitTimes->insert(temp.getTime());
@@ -156,6 +161,7 @@ void Register::fillWindows(){
 }
 
 void Register::printData(){
+
   cout << "Mean student wait time: " << meanWait() << " minutes"<< endl;
   cout << "Median student wait time: " << medianWait() << " minutes" <<endl;
   cout << "Longest student wait time: " << longestWait() << " minutes" << endl;
@@ -164,6 +170,7 @@ void Register::printData(){
   cout << "Mean window idle time: " << meanIdle() << " minutes" << endl;
   cout << "Longest window idle time: " << longestIdle() << " minutes" << endl;
   cout << "Number of windows idle for over five minutes: " << idleOverFive() << endl;
+
   /**
   cout << " " << endl;
 
@@ -178,6 +185,7 @@ void Register::printData(){
     }
   }
   **/
+
 }
 //experiment function
 bool Register::stillStudents(){
@@ -223,6 +231,8 @@ double Register::meanWait(){
   for(int i = 0; i < totalStudents; ++i){
     sum1 += waitCalcs[i];
   } //total all the values then divide by total amount
+  cout << sum1 << endl;
+  cout << totalStudents << endl;
   return sum1/totalStudents;
 }
 

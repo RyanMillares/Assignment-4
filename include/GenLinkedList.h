@@ -39,7 +39,6 @@ GenLinkedList<T>::~GenLinkedList(){
     delete front;
     delete tail;
   }
-
 }
 template <class T>
 unsigned int GenLinkedList<T>::getSize(){
@@ -63,12 +62,17 @@ void GenLinkedList<T>::printList(){
 }
 template <class T>
 void GenLinkedList<T>::insertFront(T d){
-  ListNode<T> *node = new ListNode<T>(d);
 
-  node->next = front;
-  front = node;
-  if(tail == NULL){
+  ListNode<T> *node = new ListNode<T>(d);
+  if(front == NULL){ //is empty
+    front = node;
     tail = node;
+  }
+  else{
+    node->next = front;
+    node->prev = NULL;
+    front->prev = node;
+    front = node;
   }
   size++;
 }
@@ -80,23 +84,39 @@ void GenLinkedList<T>::insertBack(T d){
   else{
     ListNode<T> *node = new ListNode<T>(d);
     node->prev = tail;
-    tail->next = node;
-    tail = node;
+    tail->next = node; //had to switch these 2
+    node->next = NULL; //had to switch these 2
 
+
+    tail = node;
+    size++;
   }
-  size++;
+
 
 }
 template <class T>
 T GenLinkedList<T>::removeFront(){
+  T tap;
   if(size > 0){
-    int tap = front->data;
-    ListNode<T> *replace = front;
-    front = front->next;
-    front->prev = NULL;
-    replace->next = NULL;
-    delete replace;
+    if(size == 1){
+      tap = front->data;
+      ListNode<T> *replace1 = front;
+      delete replace1;
+      front = NULL;
+      tail = NULL;
+
+    }
+    else{
+      tap = front->data;
+      ListNode<T> *replace = front;
+      front = front->next;
+      front->prev = NULL;
+      delete replace;
+    }
+
+    //replace->next = NULL;
     size--;
+
     return tap;
   }
   else{
@@ -108,14 +128,25 @@ T GenLinkedList<T>::removeFront(){
 }
 template <class T>
 T GenLinkedList<T>::removeBack(){
+  T tap;
   if(size > 0){
-    int tap = tail->data;
-    ListNode<T> *replace = tail;
-    tail = tail->prev;
-    cout << "lol" << endl;
-    //tail->next = NULL;
-    replace->prev = NULL;
-    delete replace;
+    if(size == 1){
+      tap = tail->data;
+      ListNode<T> *replace = tail;
+      delete replace;
+      tail = NULL;
+      front = NULL;
+
+    }
+    else{
+      tap = tail->data;
+      ListNode<T> *replace1 = tail;
+      tail = tail->prev;
+      tail->next = NULL;
+      delete replace1;
+    }
+
+
     size--;
     return tap;
   }

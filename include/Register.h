@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Student.h"
 #include "Window.h"
-#include "GenQueue2.h"
+#include "GenQueue.h"
 using namespace std;
 class Register{
 public:
@@ -33,8 +33,8 @@ public:
 
 
 private:
-  GenQueue2<Student> *myQueue; //queue that holds new studends
-  GenQueue2<int> *waitTimes; //queue that stores final wait time of students
+  GenQueue<Student> *myQueue; //queue that holds new studends
+  GenQueue<int> *waitTimes; //queue that stores final wait time of students
 
   Window* windowArray; //array storing each Window object
   int* studentArray; //array that stores the remaining time needed for students at fillWindows
