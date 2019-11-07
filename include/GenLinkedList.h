@@ -46,6 +46,10 @@ unsigned int GenLinkedList<T>::getSize(){
   return size;
 }
 template <class T>
+bool GenLinkedList<T>::isEmpty(){
+  return (size == 0);
+}
+template <class T>
 void GenLinkedList<T>::printList(){
 
   ListNode<T> *curr = new ListNode<T>();
