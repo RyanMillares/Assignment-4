@@ -21,6 +21,7 @@ int main(int argc, char **argv){
     getline(check, numWindow);
     windows = stoi(numWindow);
     check.close();
+    //read in the given file and take in the first line to initialize number of windows
 
 
 
@@ -30,36 +31,12 @@ int main(int argc, char **argv){
     exit(0);
   }
 
-  Register office(windows, input);
-  office.simulate();
-
-  //ask user for
+  Register office(windows, input); //constructor
+  office.simulate(); //simulates everything basically
 
 
-  /** //for linked list testing
-  GenLinkedList<int> myList;
-  myList.insertBack(1);
-  myList.insertBack(2);
-  myList.insertBack(3);
-  cout << myList.removeFront() << endl;
 
-  cout << myList.removeFront() << endl;
-  myList.printList();
-  **/
 
-  /** //for array-based queue testing
-  GenQueue2<int> *myQueue = new GenQueue2<int>(10);
-  myQueue->insert(1);
-  myQueue->insert(2);
-  myQueue->insert(3);
 
-  cout << myQueue->peek() << endl;
-  while(!myQueue->isEmpty()){
-    cout << myQueue->remove() << endl;
-
-  }
-  //cout << myQueue->remove() << endl;
-  //cout << myQueue->remove() << endl;
-**/
 
 }
