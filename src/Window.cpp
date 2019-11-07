@@ -6,18 +6,11 @@ Window::Window(){
   idleTime = 0;
 }
 Window::~Window(){
-
+  //idk what goes here, nothing to delete
 }
 
 void Window::updateStatus(bool isFull){
-  /**
-  if(status){
-    status = false;
-  }
-  else{
-    status = true;
-  }
-  **/
+
   status = isFull;
 
 }
@@ -28,9 +21,12 @@ bool Window::getStatus(){
 void Window::setIdle(int t){
   idleTime = 0;
 }
-void Window::increment(){
-  idleTime++;
-}
 int Window::getIdle(){
   return idleTime;
+}
+//All basic accessor/mutator fuctions
+
+//increments the idle time
+void Window::increment(){
+  idleTime++;
 }

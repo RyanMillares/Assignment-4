@@ -11,7 +11,6 @@ Register::Register(){
   totalStudents = 0;
 
   file = " ";
-  state = 0;
 }
 Register::Register(int num, string fileName){
   myQueue = new GenQueue2<Student>();
@@ -27,12 +26,13 @@ Register::Register(int num, string fileName){
   totalWindows = num;
   totalStudents = 0;
   file = fileName;
-  state = 0;
 
 }
 Register::~Register(){
   delete[] windowArray;
   delete[] studentArray;
+  delete waitTimes;
+  delete myQueue;
 
 }
 

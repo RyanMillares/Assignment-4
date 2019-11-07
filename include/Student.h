@@ -2,13 +2,13 @@
 using namespace std;
 class Student{
 public:
-  Student();
-  Student(int needs);
-  void setTime(int time);
-  int getTime();
-  void setCount(int count);
-  int getCount();
+  Student(); //default constructor
+  Student(int needs); //overloaded construct. passing in needed time
+  void setTime(int time); //mutator for wait time
+  int getTime(); //accessor for wait time
+  void setCount(int count); //mutator for needed time
+  int getCount();//accessor for needed time
 private:
-  int neededTime;
-  int waitTime;
+  int neededTime; //amount of time needed at window
+  int waitTime; //amount of time waiting in queue
 };
