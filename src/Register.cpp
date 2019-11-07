@@ -38,7 +38,7 @@ Register::~Register(){
 
 void Register::simulate(){
   //Student temp;
-  bool hasAdded = false;
+  bool isNotDone = true; //to check if file is done reading
   string currentLine;
   int num, hold;
 
@@ -46,10 +46,18 @@ void Register::simulate(){
   if(stream){
     getline(stream, currentLine);
     //skip over first line, already read in main
-    while((getline(stream,currentLine))){
+    while(isNotDone){
       //read in the current line
-      num = stoi(currentLine);
+      if(getline(stream,currentLine)){
+        num = stoi(currentLine);
+      }
+      else{
+        isNotDone = false;
+        num = 0;
+      } //allow loop to continue even after end of file
+      //until last student fully passes through the system
       //store int conversion
+
       while(time != num){
         time++;
 
@@ -59,6 +67,10 @@ void Register::simulate(){
         fillWindows();
         incrementIdle();
         incrementWait();
+         /**
+        printData();
+        cout << "Time: " << time << endl;
+        **/
 
 
         //once the time matches, add the students to queue
@@ -73,6 +85,10 @@ void Register::simulate(){
 
 
           }
+        }
+
+        if(!(isNotDone || stillStudents())){
+          break;
         }
         //windowArray[2].setIdle(3);
       }
@@ -171,7 +187,7 @@ void Register::printData(){
   cout << "Longest window idle time: " << longestIdle() << " minutes" << endl;
   cout << "Number of windows idle for over five minutes: " << idleOverFive() << endl;
 
-  /**
+/**
   cout << " " << endl;
 
   for(int i = 0; i < totalWindows; ++i){
@@ -186,9 +202,12 @@ void Register::printData(){
   }
   **/
 
+
 }
-//experiment function
+//checks if there are still students in the queue/window
+//even after file is done reading
 bool Register::stillStudents(){
+
   for(int i = 0; i < totalWindows; ++i){
     if(windowArray[i].getStatus()){
       return true;
