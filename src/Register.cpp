@@ -50,13 +50,14 @@ void Register::simulate(){
       //read in the current line
       if(getline(stream,currentLine)){
         num = stoi(currentLine);
+        //store int conversion
+
       }
       else{
         isNotDone = false;
         num = 0;
       } //allow loop to continue even after end of file
       //until last student fully passes through the system
-      //store int conversion
 
       while(time != num){
         time++;
@@ -89,7 +90,8 @@ void Register::simulate(){
 
         if(!(isNotDone || stillStudents())){
           break;
-        }
+        } //once file read is done AND all students are
+          //out of the office, break the loop
         //windowArray[2].setIdle(3);
       }
     }

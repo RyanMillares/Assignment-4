@@ -14,16 +14,16 @@ public:
   ListNode<T> *front;
   ListNode<T> *tail;
 
-  void insertFront(T d);
-  void insertBack(T d);
-  T removeFront();
-  T removeBack();
-  T deletePos(int pos);
-  int find(T d);
+  void insertFront(T d); //inserts element at the front
+  void insertBack(T d); //inserts element at the back
+  T removeFront(); //removes and returns front element
+  T removeBack(); //removes and returns last element
+  T deletePos(int pos); //delete at position
+  int find(T d); //find position of a value
 
-  bool isEmpty();
-  void printList();
-  unsigned int getSize();
+  bool isEmpty(); //is it empty?
+  void printList(); //literally just the name
+  unsigned int getSize(); //not much to say of this either
 
 };
 
@@ -32,25 +32,25 @@ GenLinkedList<T>::GenLinkedList(){
   front = NULL; //nullptr
   tail = NULL;
   size = 0;
-}
+} //constructor
 template <class T>
 GenLinkedList<T>::~GenLinkedList(){
   if(front == NULL){
     delete front;
     delete tail;
   }
-}
+} //deconstructor
 template <class T>
 unsigned int GenLinkedList<T>::getSize(){
-  return size;
+  return size; //return the size
 }
 template <class T>
 bool GenLinkedList<T>::isEmpty(){
-  return (size == 0);
+  return (size == 0); //return true if size is 0
 }
 template <class T>
 void GenLinkedList<T>::printList(){
-
+  //prints the list by iterating through every node from front to end
   ListNode<T> *curr = new ListNode<T>();
   curr = front;
   while(curr != NULL){
@@ -62,13 +62,18 @@ void GenLinkedList<T>::printList(){
 }
 template <class T>
 void GenLinkedList<T>::insertFront(T d){
-
+  //insert element at front
   ListNode<T> *node = new ListNode<T>(d);
   if(front == NULL){ //is empty
     front = node;
     tail = node;
+    //if empty, set front and tail to node
   }
   else{
+    //if there are elements
+    //set node's front pointer to Front, its prev to NULL
+    //the front's prev pointer goes to the node
+    //and the node becomes the front
     node->next = front;
     node->prev = NULL;
     front->prev = node;
@@ -81,11 +86,13 @@ void GenLinkedList<T>::insertBack(T d){
   if(tail == NULL){
     insertFront(d);
   }
+  //if list is empty, insert is same as front insertion
   else{
     ListNode<T> *node = new ListNode<T>(d);
     node->prev = tail;
     tail->next = node; //had to switch these 2
     node->next = NULL; //had to switch these 2
+    //
 
 
     tail = node;
@@ -96,8 +103,9 @@ void GenLinkedList<T>::insertBack(T d){
 }
 template <class T>
 T GenLinkedList<T>::removeFront(){
+  //remove and return item from front
   T tap;
-  if(size > 0){
+  if(size > 0){ //only do this all if there are even elements
     if(size == 1){
       tap = front->data;
       ListNode<T> *replace1 = front;
@@ -116,7 +124,6 @@ T GenLinkedList<T>::removeFront(){
 
     //replace->next = NULL;
     size--;
-
     return tap;
   }
   else{
@@ -128,15 +135,12 @@ T GenLinkedList<T>::removeFront(){
 }
 template <class T>
 T GenLinkedList<T>::removeBack(){
+  //removes from end of queue
   T tap;
   if(size > 0){
     if(size == 1){
-      tap = tail->data;
-      ListNode<T> *replace = tail;
-      delete replace;
-      tail = NULL;
-      front = NULL;
-
+      removeFront();
+      //just do a removeFront if size is one
     }
     else{
       tap = tail->data;
@@ -144,6 +148,7 @@ T GenLinkedList<T>::removeBack(){
       tail = tail->prev;
       tail->next = NULL;
       delete replace1;
+      //performs the removefront but with tail and next pointers
     }
 
 
@@ -169,8 +174,9 @@ T GenLinkedList<T>::deletePos(int pos){
     prev = curr;
     curr = curr->next;
     idx++;
+    //iterate until reaching the given position
   }
-  //add checks for valid poss and curr != nullptr
+
   if(curr == tail){
     tail = prev;
     curr->next = NULL;
@@ -181,7 +187,11 @@ T GenLinkedList<T>::deletePos(int pos){
 
     curr->next->prev = prev;
     curr->next = NULL;
-    curr->prev = NULL;
+    curr->prev = NULL
+    //perform deletion, and fix pointers of the nodes
+    //before and after to reference each other and not the
+    //deleted node
+
   }
 
   int temp = curr->data;
@@ -191,12 +201,14 @@ T GenLinkedList<T>::deletePos(int pos){
 }
 template <class T>
 int GenLinkedList<T>::find(T d){
+
   int idx = 0;
   ListNode<T> *curr = front;
 
   while(curr != NULL){
     if(curr->data == d){
       return idx;
+      //return the index where the data matches the input
       //break
     }
 
