@@ -187,7 +187,7 @@ T GenLinkedList<T>::deletePos(int pos){
 
     curr->next->prev = prev;
     curr->next = NULL;
-    curr->prev = NULL
+    curr->prev = NULL;
     //perform deletion, and fix pointers of the nodes
     //before and after to reference each other and not the
     //deleted node
